@@ -1,4 +1,4 @@
-```bash
+```txt
 
 # npm audit report
 
