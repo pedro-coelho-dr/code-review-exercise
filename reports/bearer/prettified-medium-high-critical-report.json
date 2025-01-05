@@ -1,0 +1,2758 @@
+{
+    "critical": [
+        {
+            "cwe_ids": [
+                "798"
+            ],
+            "id": "javascript_express_hardcoded_secret",
+            "title": "Usage of hard-coded secret",
+            "description": "## Description\n\nStoring secrets directly in code compromises security. It's safer to use environment variables or a secret management system.\n\n## Remediations\n\n- **Do not** store plaintext secrets in your code. This makes your application vulnerable to unauthorized access if the codebase is exposed.\n  ```javascript\n  app.use(\n    session({\n      secret: \"shh-my-secret\",\n      name: \"my-custom-session-name\",\n    })\n  )\n  ```\n- **Do** use environment variables to store secrets. This method keeps sensitive information out of your codebase.\n  ```javascript\n  app.use(\n    session({\n      secret: process.env.SECRET,\n      name: \"my-custom-session-name\",\n    })\n  )\n  ```\n- **Do** use a secret management system or a key management service (KMS) with encryption for enhanced security. These services provide secure storage and management of secrets, reducing the risk of exposure.\n\n## References\n\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n- [Google Cloud Key Management Service](https://cloud.google.com/kms/docs)\n- [AWS Key Management Service](https://aws.amazon.com/kms/)\n",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_hardcoded_secret",
+            "line_number": 56,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 56,
+                "end": 56,
+                "column": {
+                    "start": 41,
+                    "end": 108
+                }
+            },
+            "sink": {
+                "start": 56,
+                "end": 56,
+                "column": {
+                    "start": 41,
+                    "end": 108
+                },
+                "content": ""
+            },
+            "parent_line_number": 56,
+            "fingerprint": "c095a5cc1948bae67c38b5c5d85eb4f4_0",
+            "old_fingerprint": "06d79d1f19e4d32609c5caa2ebc29e28_0",
+            "code_extract": "export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })"
+        },
+        {
+            "cwe_ids": [
+                "95"
+            ],
+            "id": "javascript_lang_eval_user_input",
+            "title": "Unsanitized user input in 'eval' type function",
+            "description": "## Description\n\nAllowing user input to directly influence the behavior of `eval` and similar functions like `setTimeout` poses a significant security risk, potentially leading to remote code execution attacks. This vulnerability stems from the dynamic execution of code, which can be maliciously crafted by an attacker.\n\n## Remediations\n\n- **Do not** use `eval` or similar code execution functions directly with user input. This approach can make your application vulnerable to attacks.\n  ```javascript\n  eval(userInput); // unsafe\n  ```\n- **Do** use static, hardcoded values when working with dynamic code execution methods. This method ensures that only predefined operations are performed, reducing the risk of executing malicious code.\n  ```javascript\n    let myFunc = \"(a, b) => a + b\";\n    if (req.params[\"single_item\"]) {\n      myFunc = \"(a) => a\";\n    }\n  ```\n- **Do** consider using compiled functions instead of dynamically compiling code with user input. This practice allows for safer execution of dynamic operations by predefining the code to be executed.\n- **Do** enable JavaScript's strict mode in your code. This mode helps to catch common coding bloopers, prevents unsafe actions, and limits certain features that can make your code more secure.\n  ```javascript\n  \"use strict\";\n  ```\n\n## References\n\n- [MDN JavaScript strict mode reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_eval_user_input",
+            "line_number": 21,
+            "full_filename": "/src/routes/b2bOrder.ts",
+            "filename": "routes/b2bOrder.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 9,
+                    "end": 34
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 9,
+                    "end": 34
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "07e54b106f46e8d2158d7cc39518dab0_0",
+            "old_fingerprint": "872dbb2b90661b0280388b75fd958639_0",
+            "code_extract": "        vm.createContext(sandbox)"
+        },
+        {
+            "cwe_ids": [
+                "95"
+            ],
+            "id": "javascript_lang_eval_user_input",
+            "title": "Unsanitized user input in 'eval' type function",
+            "description": "## Description\n\nAllowing user input to directly influence the behavior of `eval` and similar functions like `setTimeout` poses a significant security risk, potentially leading to remote code execution attacks. This vulnerability stems from the dynamic execution of code, which can be maliciously crafted by an attacker.\n\n## Remediations\n\n- **Do not** use `eval` or similar code execution functions directly with user input. This approach can make your application vulnerable to attacks.\n  ```javascript\n  eval(userInput); // unsafe\n  ```\n- **Do** use static, hardcoded values when working with dynamic code execution methods. This method ensures that only predefined operations are performed, reducing the risk of executing malicious code.\n  ```javascript\n    let myFunc = \"(a, b) => a + b\";\n    if (req.params[\"single_item\"]) {\n      myFunc = \"(a) => a\";\n    }\n  ```\n- **Do** consider using compiled functions instead of dynamically compiling code with user input. This practice allows for safer execution of dynamic operations by predefining the code to be executed.\n- **Do** enable JavaScript's strict mode in your code. This mode helps to catch common coding bloopers, prevents unsafe actions, and limits certain features that can make your code more secure.\n  ```javascript\n  \"use strict\";\n  ```\n\n## References\n\n- [MDN JavaScript strict mode reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_eval_user_input",
+            "line_number": 22,
+            "full_filename": "/src/routes/b2bOrder.ts",
+            "filename": "routes/b2bOrder.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 22,
+                "end": 22,
+                "column": {
+                    "start": 9,
+                    "end": 80
+                }
+            },
+            "sink": {
+                "start": 22,
+                "end": 22,
+                "column": {
+                    "start": 9,
+                    "end": 80
+                },
+                "content": ""
+            },
+            "parent_line_number": 22,
+            "fingerprint": "07e54b106f46e8d2158d7cc39518dab0_1",
+            "old_fingerprint": "872dbb2b90661b0280388b75fd958639_1",
+            "code_extract": "        vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })"
+        },
+        {
+            "cwe_ids": [
+                "798"
+            ],
+            "id": "javascript_lang_hardcoded_secret",
+            "title": "Usage of hard-coded secret",
+            "description": "## Description\n\nStoring secrets directly in your code is a security risk. Instead, opt for environment variables or a secret management system to safeguard your secrets.\n\n## Remediations\n\n- **Do not** store plaintext secrets in your code. This exposes sensitive information to unnecessary risk.\n  ```javascript\n    passport.use(new OAuth2Strategy({\n        authorizationURL: 'https://www.example.com/oauth2/authorize',\n        tokenURL: 'https://www.example.com/oauth2/token',\n        clientID: 'my-id-123',\n        clientSecret: 'shh-my-secret',\n        callbackURL: 'http://localhost:3000/auth/example/callback'\n      },\n      function(accessToken, refreshToken, profile, cb) {\n        User.findOrCreate({ exampleId: profile.id }, function (err, user) {\n          return cb(err, user);\n        });\n      }\n    ));\n  ```\n- **Do** use environment variables to store sensitive information such as secrets. This method keeps credentials out of your codebase and makes them easier to manage securely.\n- **Do** consider implementing a key-management system to securely handle secrets and other sensitive information. This approach provides enhanced security measures for managing and accessing credentials.\n\n## References\n\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n- [Google Cloud Key Management Service](https://cloud.google.com/kms/docs)\n- [AWS Key Management Service](https://aws.amazon.com/kms/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret",
+            "line_number": 44,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 44,
+                "end": 44,
+                "column": {
+                    "start": 39,
+                    "end": 94
+                }
+            },
+            "sink": {
+                "start": 44,
+                "end": 44,
+                "column": {
+                    "start": 39,
+                    "end": 94
+                },
+                "content": ""
+            },
+            "parent_line_number": 44,
+            "fingerprint": "d699b64784f6ca1135369f86e4b64ecb_0",
+            "old_fingerprint": "b7c56ab52792b73996871f31b66d6bc7_0",
+            "code_extract": "export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')"
+        },
+        {
+            "cwe_ids": [
+                "798"
+            ],
+            "id": "javascript_lang_hardcoded_secret",
+            "title": "Usage of hard-coded secret",
+            "description": "## Description\n\nStoring secrets directly in your code is a security risk. Instead, opt for environment variables or a secret management system to safeguard your secrets.\n\n## Remediations\n\n- **Do not** store plaintext secrets in your code. This exposes sensitive information to unnecessary risk.\n  ```javascript\n    passport.use(new OAuth2Strategy({\n        authorizationURL: 'https://www.example.com/oauth2/authorize',\n        tokenURL: 'https://www.example.com/oauth2/token',\n        clientID: 'my-id-123',\n        clientSecret: 'shh-my-secret',\n        callbackURL: 'http://localhost:3000/auth/example/callback'\n      },\n      function(accessToken, refreshToken, profile, cb) {\n        User.findOrCreate({ exampleId: profile.id }, function (err, user) {\n          return cb(err, user);\n        });\n      }\n    ));\n  ```\n- **Do** use environment variables to store sensitive information such as secrets. This method keeps credentials out of your codebase and makes them easier to manage securely.\n- **Do** consider implementing a key-management system to securely handle secrets and other sensitive information. This approach provides enhanced security measures for managing and accessing credentials.\n\n## References\n\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n- [Google Cloud Key Management Service](https://cloud.google.com/kms/docs)\n- [AWS Key Management Service](https://aws.amazon.com/kms/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret",
+            "line_number": 54,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 54,
+                "end": 54,
+                "column": {
+                    "start": 49,
+                    "end": 66
+                }
+            },
+            "sink": {
+                "start": 54,
+                "end": 54,
+                "column": {
+                    "start": 49,
+                    "end": 66
+                },
+                "content": ""
+            },
+            "parent_line_number": 54,
+            "fingerprint": "d699b64784f6ca1135369f86e4b64ecb_1",
+            "old_fingerprint": "b7c56ab52792b73996871f31b66d6bc7_1",
+            "code_extract": "export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)"
+        },
+        {
+            "cwe_ids": [
+                "798"
+            ],
+            "id": "javascript_lang_hardcoded_secret",
+            "title": "Usage of hard-coded secret",
+            "description": "## Description\n\nStoring secrets directly in your code is a security risk. Instead, opt for environment variables or a secret management system to safeguard your secrets.\n\n## Remediations\n\n- **Do not** store plaintext secrets in your code. This exposes sensitive information to unnecessary risk.\n  ```javascript\n    passport.use(new OAuth2Strategy({\n        authorizationURL: 'https://www.example.com/oauth2/authorize',\n        tokenURL: 'https://www.example.com/oauth2/token',\n        clientID: 'my-id-123',\n        clientSecret: 'shh-my-secret',\n        callbackURL: 'http://localhost:3000/auth/example/callback'\n      },\n      function(accessToken, refreshToken, profile, cb) {\n        User.findOrCreate({ exampleId: profile.id }, function (err, user) {\n          return cb(err, user);\n        });\n      }\n    ));\n  ```\n- **Do** use environment variables to store sensitive information such as secrets. This method keeps credentials out of your codebase and makes them easier to manage securely.\n- **Do** consider implementing a key-management system to securely handle secrets and other sensitive information. This approach provides enhanced security measures for managing and accessing credentials.\n\n## References\n\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n- [Google Cloud Key Management Service](https://cloud.google.com/kms/docs)\n- [AWS Key Management Service](https://aws.amazon.com/kms/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret",
+            "line_number": 152,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 152,
+                "end": 152,
+                "column": {
+                    "start": 16,
+                    "end": 55
+                }
+            },
+            "sink": {
+                "start": 152,
+                "end": 152,
+                "column": {
+                    "start": 16,
+                    "end": 55
+                },
+                "content": ""
+            },
+            "parent_line_number": 152,
+            "fingerprint": "d699b64784f6ca1135369f86e4b64ecb_2",
+            "old_fingerprint": "b7c56ab52792b73996871f31b66d6bc7_2",
+            "code_extract": "  const hmac = crypto.createHmac('sha256', privateKey)"
+        },
+        {
+            "cwe_ids": [
+                "798"
+            ],
+            "id": "javascript_lang_jwt_hardcoded_secret",
+            "title": "Leakage of hard-coded secret in JWT",
+            "description": "## Description\n\nStoring hard-coded secrets in your code, especially for JSON Web Tokens (JWT), poses a significant security risk. This practice makes your application vulnerable to unauthorized access and attacks.\n\n## Remediations\n\n- **Do not** hard-code secrets in your code. Hard-coding makes sensitive information easily accessible to anyone who can view the code.\n- **Do** use environment variables to store sensitive information such as secrets. This method keeps credentials out of your codebase and makes them easier to manage securely.\n```javascript\n  var jwt = require(\"jsonwebtoken\");\n  var token = jwt.sign({ foo: \"bar\" }, process.env.JWT_SECRET);\n```\n- **Do** consider implementing a key-management system to securely handle secrets and other sensitive information. This approach provides enhanced security measures for managing and accessing credentials.\n\n## References\n\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_jwt_hardcoded_secret",
+            "line_number": 56,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 56,
+                "end": 56,
+                "column": {
+                    "start": 41,
+                    "end": 108
+                }
+            },
+            "sink": {
+                "start": 56,
+                "end": 56,
+                "column": {
+                    "start": 41,
+                    "end": 108
+                },
+                "content": ""
+            },
+            "parent_line_number": 56,
+            "fingerprint": "50ebccec98d14333da6adb3b94c79730_0",
+            "old_fingerprint": "0ae83fb4738b827beafcc382b9232d1c_0",
+            "code_extract": "export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 5,
+            "full_filename": "/src/data/static/codefixes/dbSchemaChallenge_1.ts",
+            "filename": "data/static/codefixes/dbSchemaChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 5,
+                "end": 5,
+                "column": {
+                    "start": 5,
+                    "end": 163
+                }
+            },
+            "sink": {
+                "start": 5,
+                "end": 5,
+                "column": {
+                    "start": 5,
+                    "end": 163
+                },
+                "content": ""
+            },
+            "parent_line_number": 5,
+            "fingerprint": "2422999ee983c379479a0d13296d2b45_0",
+            "old_fingerprint": "8780deb6490cbf9e146e6b5c546dd0d3_0",
+            "code_extract": "    models.sequelize.query(\"SELECT * FROM Products WHERE ((name LIKE '%\"+criteria+\"%' OR description LIKE '%\"+criteria+\"%') AND deletedAt IS NULL) ORDER BY name\")"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 11,
+            "full_filename": "/src/data/static/codefixes/dbSchemaChallenge_3.ts",
+            "filename": "data/static/codefixes/dbSchemaChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 11,
+                "end": 11,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                }
+            },
+            "sink": {
+                "start": 11,
+                "end": 11,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                },
+                "content": ""
+            },
+            "parent_line_number": 11,
+            "fingerprint": "8014e30891e8e3cb3c4a378fcf1afa38_0",
+            "old_fingerprint": "51852ca00a92a90b3f76e00a5b40698f_3",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 20,
+            "full_filename": "/src/data/static/codefixes/loginAdminChallenge_1.ts",
+            "filename": "data/static/codefixes/loginAdminChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                }
+            },
+            "sink": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                },
+                "content": ""
+            },
+            "parent_line_number": 20,
+            "fingerprint": "e3d18d5f0ca1f301fa884039dc723bf6_0",
+            "old_fingerprint": "1e461e9703adabe3316a6dee0f28ac83_6",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 20,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_1.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                }
+            },
+            "sink": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                },
+                "content": ""
+            },
+            "parent_line_number": 20,
+            "fingerprint": "4b0883d52334dfd9a4acce2fcf810121_0",
+            "old_fingerprint": "65b27a609cd0e825ae1178e3397330f7_7",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 17,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_4.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_4.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 17,
+                "end": 17,
+                "column": {
+                    "start": 5,
+                    "end": 209
+                }
+            },
+            "sink": {
+                "start": 17,
+                "end": 17,
+                "column": {
+                    "start": 5,
+                    "end": 209
+                },
+                "content": ""
+            },
+            "parent_line_number": 17,
+            "fingerprint": "4a25d479d29e305cf7b9b7181f917eb8_0",
+            "old_fingerprint": "bbb4bbd09d27bc7e32e3c785d996d121_4",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 17,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_2.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_2.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 17,
+                "end": 17,
+                "column": {
+                    "start": 5,
+                    "end": 209
+                }
+            },
+            "sink": {
+                "start": 17,
+                "end": 17,
+                "column": {
+                    "start": 5,
+                    "end": 209
+                },
+                "content": ""
+            },
+            "parent_line_number": 17,
+            "fingerprint": "df98e54f62e0cc9172446bbd0361c29c_0",
+            "old_fingerprint": "26b4e2bd941c69002ac03e57326951c5_5",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 20,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_4.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_4.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                }
+            },
+            "sink": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 5,
+                    "end": 208
+                },
+                "content": ""
+            },
+            "parent_line_number": 20,
+            "fingerprint": "1b0805db0c0342c03908f442d4972b13_0",
+            "old_fingerprint": "b23169b591b5e27a727be2fba33f2318_8",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 6,
+            "full_filename": "/src/data/static/codefixes/unionSqlInjectionChallenge_1.ts",
+            "filename": "data/static/codefixes/unionSqlInjectionChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 6,
+                "end": 6,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                }
+            },
+            "sink": {
+                "start": 6,
+                "end": 6,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                },
+                "content": ""
+            },
+            "parent_line_number": 6,
+            "fingerprint": "7e9979f44c0dbd99c76619f48c4245fa_0",
+            "old_fingerprint": "f4b13f56481fe0d9539ed5ae161e2272_1",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 10,
+            "full_filename": "/src/data/static/codefixes/unionSqlInjectionChallenge_3.ts",
+            "filename": "data/static/codefixes/unionSqlInjectionChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 10,
+                "end": 10,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                }
+            },
+            "sink": {
+                "start": 10,
+                "end": 10,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                },
+                "content": ""
+            },
+            "parent_line_number": 10,
+            "fingerprint": "d6273bb4e3195d87ba54a7ca10db72be_0",
+            "old_fingerprint": "7cab91b91ac1a64f1227103bf62583dc_2",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 36,
+            "full_filename": "/src/routes/login.ts",
+            "filename": "routes/login.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 36,
+                "end": 36,
+                "column": {
+                    "start": 5,
+                    "end": 206
+                }
+            },
+            "sink": {
+                "start": 36,
+                "end": 36,
+                "column": {
+                    "start": 5,
+                    "end": 206
+                },
+                "content": ""
+            },
+            "parent_line_number": 36,
+            "fingerprint": "1c2a6e42ca5adc2c078fee1a7cb1a787_0",
+            "old_fingerprint": "6a6186f46c0da7663f573d612518f6e0_10",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge"
+        },
+        {
+            "cwe_ids": [
+                "89"
+            ],
+            "id": "javascript_lang_sql_injection",
+            "title": "Unsanitized input in SQL query",
+            "description": "## Description\n\nUsing unsanitized data, such as user input or request data, or externally influenced data passed to a function, in SQL query exposes your application to SQL injection attacks. This vulnerability arises when externally controlled data is directly included in SQL statements without proper sanitation, allowing attackers to manipulate queries and access or modify data.\n\n## Remediations\n\n- **Do not** use raw SQL queries that concatenate unsanitized input directly.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId); // unsafe\n  ```\n- **Do** validate all query inputs to ensure they meet expected patterns or values before using them in a query.\n  ```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n  ```\n- **Do** use prepared (or parameterized) statements for querying databases to safely include external input.\n  ```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n  ```\n\n## References\n\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_sql_injection",
+            "line_number": 23,
+            "full_filename": "/src/routes/search.ts",
+            "filename": "routes/search.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                }
+            },
+            "sink": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 5,
+                    "end": 161
+                },
+                "content": ""
+            },
+            "parent_line_number": 23,
+            "fingerprint": "626e8a24818faf605935d6ca0f0f748f_0",
+            "old_fingerprint": "ce513a0fba067311bfc2d830569d58ee_9",
+            "code_extract": "    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge"
+        },
+        {
+            "cwe_ids": [
+                "502"
+            ],
+            "id": "javascript_lang_unsafe_deserialization",
+            "title": "Unsanitized user input in deserialization method",
+            "description": "## Description\n\nDeserializing untrusted data is a risky practice. This vulnerability arises when data, especially from external sources like request objects, is deserialized without proper sanitization. Attackers can embed malicious payloads within serialized data, compromising your application's security upon deserialization.\n\n## Remediations\n\n- **Do not** deserialize data that comes directly from untrusted sources. This prevents attackers from injecting malicious payloads that could compromise your application.\n- **Do** opt for data-only and language-neutral serialization formats like JSON or XML for deserializing data. These formats are less susceptible to manipulation by attackers aiming to exploit the deserialization process.\n  ```javascript\n  JSON.parse(req.params);\n  ```\n\n## References\n\n- [OWASP Deserialization cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_unsafe_deserialization",
+            "line_number": 80,
+            "full_filename": "/src/routes/vulnCodeFixes.ts",
+            "filename": "routes/vulnCodeFixes.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 80,
+                "end": 80,
+                "column": {
+                    "start": 36,
+                    "end": 118
+                }
+            },
+            "sink": {
+                "start": 80,
+                "end": 80,
+                "column": {
+                    "start": 36,
+                    "end": 118
+                },
+                "content": ""
+            },
+            "parent_line_number": 80,
+            "fingerprint": "a5c85e9a268fe1a1f2e5611a370ea685_0",
+            "old_fingerprint": "08ce40b242604ef6e221f71d91cb157c_0",
+            "code_extract": "      const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))"
+        },
+        {
+            "cwe_ids": [
+                "502"
+            ],
+            "id": "javascript_lang_unsafe_deserialization",
+            "title": "Unsanitized user input in deserialization method",
+            "description": "## Description\n\nDeserializing untrusted data is a risky practice. This vulnerability arises when data, especially from external sources like request objects, is deserialized without proper sanitization. Attackers can embed malicious payloads within serialized data, compromising your application's security upon deserialization.\n\n## Remediations\n\n- **Do not** deserialize data that comes directly from untrusted sources. This prevents attackers from injecting malicious payloads that could compromise your application.\n- **Do** opt for data-only and language-neutral serialization formats like JSON or XML for deserializing data. These formats are less susceptible to manipulation by attackers aiming to exploit the deserialization process.\n  ```javascript\n  JSON.parse(req.params);\n  ```\n\n## References\n\n- [OWASP Deserialization cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_unsafe_deserialization",
+            "line_number": 94,
+            "full_filename": "/src/routes/vulnCodeSnippet.ts",
+            "filename": "routes/vulnCodeSnippet.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 94,
+                "end": 94,
+                "column": {
+                    "start": 34,
+                    "end": 116
+                }
+            },
+            "sink": {
+                "start": 94,
+                "end": 94,
+                "column": {
+                    "start": 34,
+                    "end": 116
+                },
+                "content": ""
+            },
+            "parent_line_number": 94,
+            "fingerprint": "e12d2f6a49a598973883269b06feb4b2_0",
+            "old_fingerprint": "b535c8d357c25fefc67045426ce45974_1",
+            "code_extract": "    const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))"
+        }
+    ],
+    "high": [
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_external_file_upload",
+            "title": "Unsanitized user input in HTTP send file request",
+            "description": "## Description\n\nUsing unsanitized user input in the sendFile API call exposes your application to path manipulation attacks. This vulnerability allows attackers to access files and resources they shouldn't be able to, by manipulating file paths in requests.\n\n## Remediations\n\n- **Do** set the `root` option to an absolute path to a directory when using `sendFile`. This confines the accessible files to a specific directory, preventing attackers from accessing files outside of this directory.\n  ```javascript\n  app.post(\"/upload\", (req, res) => {\n    var options = {\n      root: path.join(__dirname, \"upload\")\n    };\n    res.sendFile(req.params.filename, options);\n  });\n  ```\n\n## References\n\n- [Express sendFile API reference](http://expressjs.com/en/5x/api.html#res.sendFile)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_external_file_upload",
+            "line_number": 14,
+            "full_filename": "/src/routes/keyServer.ts",
+            "filename": "routes/keyServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 58
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 58
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "8643fdcb8411f54a6af5a25deb2da818_0",
+            "old_fingerprint": "4dea044fb321acda23f58a5127b343f9_0",
+            "code_extract": "      res.sendFile(path.resolve('encryptionkeys/', file))"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_external_file_upload",
+            "title": "Unsanitized user input in HTTP send file request",
+            "description": "## Description\n\nUsing unsanitized user input in the sendFile API call exposes your application to path manipulation attacks. This vulnerability allows attackers to access files and resources they shouldn't be able to, by manipulating file paths in requests.\n\n## Remediations\n\n- **Do** set the `root` option to an absolute path to a directory when using `sendFile`. This confines the accessible files to a specific directory, preventing attackers from accessing files outside of this directory.\n  ```javascript\n  app.post(\"/upload\", (req, res) => {\n    var options = {\n      root: path.join(__dirname, \"upload\")\n    };\n    res.sendFile(req.params.filename, options);\n  });\n  ```\n\n## References\n\n- [Express sendFile API reference](http://expressjs.com/en/5x/api.html#res.sendFile)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_external_file_upload",
+            "line_number": 14,
+            "full_filename": "/src/routes/logfileServer.ts",
+            "filename": "routes/logfileServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 48
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 48
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "caf5b22a357fad021743f7b2b8da54b8_0",
+            "old_fingerprint": "340f69d76a190ff0a375566b3d35ed26_1",
+            "code_extract": "      res.sendFile(path.resolve('logs/', file))"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_external_file_upload",
+            "title": "Unsanitized user input in HTTP send file request",
+            "description": "## Description\n\nUsing unsanitized user input in the sendFile API call exposes your application to path manipulation attacks. This vulnerability allows attackers to access files and resources they shouldn't be able to, by manipulating file paths in requests.\n\n## Remediations\n\n- **Do** set the `root` option to an absolute path to a directory when using `sendFile`. This confines the accessible files to a specific directory, preventing attackers from accessing files outside of this directory.\n  ```javascript\n  app.post(\"/upload\", (req, res) => {\n    var options = {\n      root: path.join(__dirname, \"upload\")\n    };\n    res.sendFile(req.params.filename, options);\n  });\n  ```\n\n## References\n\n- [Express sendFile API reference](http://expressjs.com/en/5x/api.html#res.sendFile)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_external_file_upload",
+            "line_number": 14,
+            "full_filename": "/src/routes/quarantineServer.ts",
+            "filename": "routes/quarantineServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 58
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 7,
+                    "end": 58
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "684ac0da58fe48421abddc5208554ab4_0",
+            "old_fingerprint": "ed2b179078eef60349949ad2954e7247_2",
+            "code_extract": "      res.sendFile(path.resolve('ftp/quarantine/', file))"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_path_traversal",
+            "title": "Unsanitized user input in file path",
+            "description": "## Description\n\nUsing unsanitized user input to construct file paths can allow attackers to access files and directories beyond the intended limits. This vulnerability, known as path traversal, poses a significant security risk.\n\n## Remediations\n\n- **Do not** directly use user input in file path construction. This can lead to unauthorized file access.\n- **Do** sanitize user input before using it in path resolution. Replace or remove dangerous patterns like `\\..\\..` to prevent directory traversal attacks.\n  ```javascript\n  var sanitizedPath = userInput.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and eliminate any instances of the poison NULL byte (\"%00\") in user input, as it can be used to bypass path sanitization.\n  ```javascript\n  if (userInput.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** validate the final path to ensure it is within the intended scope before accessing the file system.\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_path_traversal",
+            "line_number": 69,
+            "full_filename": "/src/routes/dataErasure.ts",
+            "filename": "routes/dataErasure.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 69,
+                "end": 69,
+                "column": {
+                    "start": 32,
+                    "end": 61
+                }
+            },
+            "sink": {
+                "start": 69,
+                "end": 69,
+                "column": {
+                    "start": 32,
+                    "end": 61
+                },
+                "content": ""
+            },
+            "parent_line_number": 69,
+            "fingerprint": "730d1c5106516470d1853a35c4aca01b_0",
+            "old_fingerprint": "80daa13a36f2ac1fdc1c3b571bef804e_3",
+            "code_extract": "      const filePath: string = path.resolve(req.body.layout).toLowerCase()"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_path_traversal",
+            "title": "Unsanitized user input in file path",
+            "description": "## Description\n\nUsing unsanitized user input to construct file paths can allow attackers to access files and directories beyond the intended limits. This vulnerability, known as path traversal, poses a significant security risk.\n\n## Remediations\n\n- **Do not** directly use user input in file path construction. This can lead to unauthorized file access.\n- **Do** sanitize user input before using it in path resolution. Replace or remove dangerous patterns like `\\..\\..` to prevent directory traversal attacks.\n  ```javascript\n  var sanitizedPath = userInput.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and eliminate any instances of the poison NULL byte (\"%00\") in user input, as it can be used to bypass path sanitization.\n  ```javascript\n  if (userInput.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** validate the final path to ensure it is within the intended scope before accessing the file system.\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_path_traversal",
+            "line_number": 14,
+            "full_filename": "/src/routes/keyServer.ts",
+            "filename": "routes/keyServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "f0fdc8f875e9b77313305edb186aec62_0",
+            "old_fingerprint": "6ed85a90b6ef564fe575d45ccd197237_0",
+            "code_extract": "      res.sendFile(path.resolve('encryptionkeys/', file))"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_path_traversal",
+            "title": "Unsanitized user input in file path",
+            "description": "## Description\n\nUsing unsanitized user input to construct file paths can allow attackers to access files and directories beyond the intended limits. This vulnerability, known as path traversal, poses a significant security risk.\n\n## Remediations\n\n- **Do not** directly use user input in file path construction. This can lead to unauthorized file access.\n- **Do** sanitize user input before using it in path resolution. Replace or remove dangerous patterns like `\\..\\..` to prevent directory traversal attacks.\n  ```javascript\n  var sanitizedPath = userInput.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and eliminate any instances of the poison NULL byte (\"%00\") in user input, as it can be used to bypass path sanitization.\n  ```javascript\n  if (userInput.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** validate the final path to ensure it is within the intended scope before accessing the file system.\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_path_traversal",
+            "line_number": 14,
+            "full_filename": "/src/routes/logfileServer.ts",
+            "filename": "routes/logfileServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 47
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 47
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "51001ae13fdae4f062cec51a842161b2_0",
+            "old_fingerprint": "56b451776e394442c1be9249dc30049f_1",
+            "code_extract": "      res.sendFile(path.resolve('logs/', file))"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_express_path_traversal",
+            "title": "Unsanitized user input in file path",
+            "description": "## Description\n\nUsing unsanitized user input to construct file paths can allow attackers to access files and directories beyond the intended limits. This vulnerability, known as path traversal, poses a significant security risk.\n\n## Remediations\n\n- **Do not** directly use user input in file path construction. This can lead to unauthorized file access.\n- **Do** sanitize user input before using it in path resolution. Replace or remove dangerous patterns like `\\..\\..` to prevent directory traversal attacks.\n  ```javascript\n  var sanitizedPath = userInput.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and eliminate any instances of the poison NULL byte (\"%00\") in user input, as it can be used to bypass path sanitization.\n  ```javascript\n  if (userInput.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** validate the final path to ensure it is within the intended scope before accessing the file system.\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_path_traversal",
+            "line_number": 14,
+            "full_filename": "/src/routes/quarantineServer.ts",
+            "filename": "routes/quarantineServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 14,
+                "end": 14,
+                "column": {
+                    "start": 20,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 14,
+            "fingerprint": "a59cb4c55fa6ab0b98f1f061b0262ee1_0",
+            "old_fingerprint": "01fc41ad0212a2c38cb3eab97a3a93b8_2",
+            "code_extract": "      res.sendFile(path.resolve('ftp/quarantine/', file))"
+        },
+        {
+            "cwe_ids": [
+                "79"
+            ],
+            "id": "javascript_lang_dangerous_insert_html",
+            "title": "Unsanitized user input in dynamic HTML insertion (XSS)",
+            "description": "## Description\n\nUnsanitized user input in dynamic HTML insertion can lead to Cross-Site Scripting (XSS) attacks. This vulnerability arises when user-provided data is directly inserted into the DOM without proper sanitization, potentially allowing attackers to execute malicious scripts.\n\n## Remediations\n\n- **Do** use an HTML sanitization library to clean user input before inserting it into the HTML. This step helps prevent XSS attacks by removing or neutralizing any potentially harmful scripts.\n  ```javascript\n  import sanitizeHtml from 'sanitize-html';\n\n  const html = `<strong>${user.Input}</strong>`;\n  document.body.innerHTML = sanitizeHtml(html);\n  ```\n\n## References\n\n- [OWASP XSS explained](https://owasp.org/www-community/attacks/xss/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_dangerous_insert_html",
+            "line_number": 111,
+            "full_filename": "/src/frontend/src/hacking-instructor/index.ts",
+            "filename": "frontend/src/hacking-instructor/index.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 111,
+                "end": 111,
+                "column": {
+                    "start": 3,
+                    "end": 43
+                }
+            },
+            "sink": {
+                "start": 111,
+                "end": 111,
+                "column": {
+                    "start": 3,
+                    "end": 43
+                },
+                "content": ""
+            },
+            "parent_line_number": 111,
+            "fingerprint": "bf127e52a210d7d5cdb66cacceb977ff_0",
+            "old_fingerprint": "78b7542963852825d201c0018c9dba1a_0",
+            "code_extract": "  textBox.innerHTML = snarkdown(hint.text)"
+        },
+        {
+            "cwe_ids": [
+                "918"
+            ],
+            "id": "javascript_lang_http_url_using_user_input",
+            "title": "Unsanitized user input in HTTP request (SSRF)",
+            "description": "## Description\n\nConstructing URLs based on user input puts your application at risk of Server-Side Request Forgery (SSRF) attacks. This vulnerability allows attackers to manipulate the application into making unintended HTTP requests.\n\n## Remediations\n\n- **Do not** directly incorporate user input into URLs for HTTP requests. This can lead to SSRF vulnerabilities.\n  ```javascript\n  const response = axios.get(`https://${req.params.host}`) // unsafe\n  ```\n- **Do** validate or map user input against a predefined list of allowed values before using it to form URLs. This approach minimizes the risk of SSRF attacks.\n  ```javascript\n  const hosts = new Map([\n    [\"option1\", \"api1.com\"],\n    [\"option2\", \"api2.com\"]\n  ])\n\n  const host = hosts.get(req.params.host)\n  const response = axios.get(`https://${host}`)\n  ```",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_http_url_using_user_input",
+            "line_number": 22,
+            "full_filename": "/src/routes/profileImageUrlUpload.ts",
+            "filename": "routes/profileImageUrlUpload.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 22,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 20
+                }
+            },
+            "sink": {
+                "start": 22,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 20
+                },
+                "content": ""
+            },
+            "parent_line_number": 22,
+            "fingerprint": "8ed612ce6d89f70e214b65244f8793b4_0",
+            "old_fingerprint": "d3d54f6b205bf5f7a4fc8788d40441f3_0",
+            "code_extract": "        const imageRequest = request\n          .get(url)"
+        },
+        {
+            "cwe_ids": [
+                "79"
+            ],
+            "id": "javascript_lang_manual_html_sanitization",
+            "title": "Usage of manual HTML sanitization (XSS)",
+            "description": "## Description\n\nManually sanitizing HTML is prone to mistakes and can lead to Cross-Site Scripting (XSS) vulnerabilities. This occurs when user input is not properly sanitized, allowing attackers to inject malicious scripts into web pages viewed by other users.\n\n## Remediations\n\n- **Do not** manually escape HTML to sanitize user input. This method is unreliable and can easily miss certain exploits.\n  ```javascript\n  const sanitizedUserInput = user.Input\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;'); // unsafe\n  const html = `<strong>${sanitizedUserInput}</strong>`;\n  ```\n- **Do** use a trusted HTML sanitization library to handle user input safely. Libraries designed for sanitization are more reliable as they cover a wide range of XSS attack vectors.\n  ```javascript\n  import sanitizeHtml from 'sanitize-html';\n\n  const html = sanitizeHtml(`<strong>${user.Input}</strong>`);\n  ```\n\n## References\n\n- [OWASP XSS explained](https://owasp.org/www-community/attacks/xss/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_manual_html_sanitization",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/redirectChallenge_3.ts",
+            "filename": "data/static/codefixes/redirectChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 30,
+                "column": {
+                    "start": 10,
+                    "end": 7
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 30,
+                "column": {
+                    "start": 10,
+                    "end": 7
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "21de2a29f76880dbfbba700acb3cf4b4_0",
+            "old_fingerprint": "27e7d0b9d0106a8d1564b04521144e2f_0",
+            "code_extract": "  return str.replace(/[&<>'\"]/g,\n    tag => {\n      return ({\n        ...omitted (buffer value 3)\n        '\"': '&quot;'\n      }[tag])\n    })"
+        },
+        {
+            "cwe_ids": [
+                "79"
+            ],
+            "id": "javascript_lang_manual_html_sanitization",
+            "title": "Usage of manual HTML sanitization (XSS)",
+            "description": "## Description\n\nManually sanitizing HTML is prone to mistakes and can lead to Cross-Site Scripting (XSS) vulnerabilities. This occurs when user input is not properly sanitized, allowing attackers to inject malicious scripts into web pages viewed by other users.\n\n## Remediations\n\n- **Do not** manually escape HTML to sanitize user input. This method is unreliable and can easily miss certain exploits.\n  ```javascript\n  const sanitizedUserInput = user.Input\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;'); // unsafe\n  const html = `<strong>${sanitizedUserInput}</strong>`;\n  ```\n- **Do** use a trusted HTML sanitization library to handle user input safely. Libraries designed for sanitization are more reliable as they cover a wide range of XSS attack vectors.\n  ```javascript\n  import sanitizeHtml from 'sanitize-html';\n\n  const html = sanitizeHtml(`<strong>${user.Input}</strong>`);\n  ```\n\n## References\n\n- [OWASP XSS explained](https://owasp.org/www-community/attacks/xss/)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_manual_html_sanitization",
+            "line_number": 59,
+            "full_filename": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+            "filename": "data/static/codefixes/restfulXssChallenge_2.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 59,
+                "end": 59,
+                "column": {
+                    "start": 34,
+                    "end": 106
+                }
+            },
+            "sink": {
+                "start": 59,
+                "end": 59,
+                "column": {
+                    "start": 34,
+                    "end": 106
+                },
+                "content": ""
+            },
+            "parent_line_number": 59,
+            "fingerprint": "d098ec6c1ec482df2422801759454ad2_0",
+            "old_fingerprint": "b5b442b8e79403b0e553a98668bf805a_1",
+            "code_extract": "      tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_lang_non_literal_fs_filename",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nAllowing unsanitized dynamic input in file paths can lead to unauthorized file and folder access. This vulnerability arises when dynamic data is used within the file system operations, potentially allowing attackers to access unauthorized or hidden files and folders.\n\n## Remediations\n\n- **Do** sanitize all dynamic data and function arguments before using them in file system operations. This step is crucial to prevent unauthorized access.\n- **Do** use a combination of hard-coded string literals and control logic, instead of directly passing dynamic data or function arguments to file system functions. This ensures safety.\n  ```javascript\n  function write(filename) {\n    switch(filename) {\n      case \"hello.txt\":\n        fs.writeCreateFile(\"hello.txt\");\n        break;\n      // Add more cases as necessary\n    }\n  }\n  ```\n\n## References\n\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_non_literal_fs_filename",
+            "line_number": 21,
+            "full_filename": "/src/lib/codingChallenges.ts",
+            "filename": "lib/codingChallenges.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 16,
+                    "end": 34
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 16,
+                    "end": 34
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "73d96c553a83c0626bf61bfc583aad32_0",
+            "old_fingerprint": "ca525110cf5a1afbac40653dd432af41_0",
+            "code_extract": "    if ((await fs.lstat(currPath)).isDirectory()) {"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_lang_non_literal_fs_filename",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nAllowing unsanitized dynamic input in file paths can lead to unauthorized file and folder access. This vulnerability arises when dynamic data is used within the file system operations, potentially allowing attackers to access unauthorized or hidden files and folders.\n\n## Remediations\n\n- **Do** sanitize all dynamic data and function arguments before using them in file system operations. This step is crucial to prevent unauthorized access.\n- **Do** use a combination of hard-coded string literals and control logic, instead of directly passing dynamic data or function arguments to file system functions. This ensures safety.\n  ```javascript\n  function write(filename) {\n    switch(filename) {\n      case \"hello.txt\":\n        fs.writeCreateFile(\"hello.txt\");\n        break;\n      // Add more cases as necessary\n    }\n  }\n  ```\n\n## References\n\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_non_literal_fs_filename",
+            "line_number": 22,
+            "full_filename": "/src/lib/codingChallenges.ts",
+            "filename": "lib/codingChallenges.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 22,
+                "end": 22,
+                "column": {
+                    "start": 27,
+                    "end": 47
+                }
+            },
+            "sink": {
+                "start": 22,
+                "end": 22,
+                "column": {
+                    "start": 27,
+                    "end": 47
+                },
+                "content": ""
+            },
+            "parent_line_number": 22,
+            "fingerprint": "73d96c553a83c0626bf61bfc583aad32_1",
+            "old_fingerprint": "ca525110cf5a1afbac40653dd432af41_1",
+            "code_extract": "      const files = await fs.readdir(currPath)"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_lang_non_literal_fs_filename",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nAllowing unsanitized dynamic input in file paths can lead to unauthorized file and folder access. This vulnerability arises when dynamic data is used within the file system operations, potentially allowing attackers to access unauthorized or hidden files and folders.\n\n## Remediations\n\n- **Do** sanitize all dynamic data and function arguments before using them in file system operations. This step is crucial to prevent unauthorized access.\n- **Do** use a combination of hard-coded string literals and control logic, instead of directly passing dynamic data or function arguments to file system functions. This ensures safety.\n  ```javascript\n  function write(filename) {\n    switch(filename) {\n      case \"hello.txt\":\n        fs.writeCreateFile(\"hello.txt\");\n        break;\n      // Add more cases as necessary\n    }\n  }\n  ```\n\n## References\n\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_non_literal_fs_filename",
+            "line_number": 29,
+            "full_filename": "/src/lib/codingChallenges.ts",
+            "filename": "lib/codingChallenges.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 29,
+                "end": 29,
+                "column": {
+                    "start": 28,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 29,
+                "end": 29,
+                "column": {
+                    "start": 28,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 29,
+            "fingerprint": "73d96c553a83c0626bf61bfc583aad32_2",
+            "old_fingerprint": "ca525110cf5a1afbac40653dd432af41_2",
+            "code_extract": "        const code = await fs.readFile(currPath, 'utf8')"
+        },
+        {
+            "cwe_ids": [
+                "73"
+            ],
+            "id": "javascript_lang_non_literal_fs_filename",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nAllowing unsanitized dynamic input in file paths can lead to unauthorized file and folder access. This vulnerability arises when dynamic data is used within the file system operations, potentially allowing attackers to access unauthorized or hidden files and folders.\n\n## Remediations\n\n- **Do** sanitize all dynamic data and function arguments before using them in file system operations. This step is crucial to prevent unauthorized access.\n- **Do** use a combination of hard-coded string literals and control logic, instead of directly passing dynamic data or function arguments to file system functions. This ensures safety.\n  ```javascript\n  function write(filename) {\n    switch(filename) {\n      case \"hello.txt\":\n        fs.writeCreateFile(\"hello.txt\");\n        break;\n      // Add more cases as necessary\n    }\n  }\n  ```\n\n## References\n\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_non_literal_fs_filename",
+            "line_number": 124,
+            "full_filename": "/src/lib/utils.ts",
+            "filename": "lib/utils.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 124,
+                "end": 124,
+                "column": {
+                    "start": 5,
+                    "end": 33
+                }
+            },
+            "sink": {
+                "start": 124,
+                "end": 124,
+                "column": {
+                    "start": 5,
+                    "end": 33
+                },
+                "content": ""
+            },
+            "parent_line_number": 124,
+            "fingerprint": "7c3b9c325fc9908dbf3d200e6b29cf66_0",
+            "old_fingerprint": "fe1556d4786364175782fe33a9d2b35b_3",
+            "code_extract": "    fs.writeFileSync(dest, data)"
+        },
+        {
+            "cwe_ids": [
+                "22"
+            ],
+            "id": "javascript_lang_path_traversal",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nUsing unsanitized dynamic input to determine file paths can allow attackers to gain access to files and folders outside of the intended scope. This vulnerability occurs when input provided by users is directly used to access the filesystem without proper validation or sanitization.\n\n## Remediations\n\n- **Do not** directly use user input to construct file paths. This can lead to unauthorized file access.\n- **Do** sanitize user input used in file paths. Replace patterns that can navigate out of intended directories, such as `..\\..`, to prevent path traversal attacks.\n  ```javascript\n  var folder = target.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and remove any instances of the NULL byte (\"%00\") in user input to guard against poison NULL byte attacks.\n  ```javascript\n  if (target.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** use path concatenation methods provided by your programming environment to securely combine user input with your base directory path. This ensures the final path starts within the intended scope.\n  ```javascript\n  const path = require(\"path\");\n  var pathname = path.join(\"/public/\", folder);\n  if (pathname.indexOf(\"/public/\") !== 0) {\n    // Handle or reject the input\n  }\n  ```\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_path_traversal",
+            "line_number": 7,
+            "full_filename": "/src/data/staticData.ts",
+            "filename": "data/staticData.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 7,
+                "end": 7,
+                "column": {
+                    "start": 20,
+                    "end": 66
+                }
+            },
+            "sink": {
+                "start": 7,
+                "end": 7,
+                "column": {
+                    "start": 20,
+                    "end": 66
+                },
+                "content": ""
+            },
+            "parent_line_number": 7,
+            "fingerprint": "4161e76ae99975b4259d0e9228df69d5_0",
+            "old_fingerprint": "66c629120b6618b023164639311dc656_0",
+            "code_extract": "  const filePath = path.resolve('./data/static/' + file + '.yml')"
+        },
+        {
+            "cwe_ids": [
+                "22"
+            ],
+            "id": "javascript_lang_path_traversal",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nUsing unsanitized dynamic input to determine file paths can allow attackers to gain access to files and folders outside of the intended scope. This vulnerability occurs when input provided by users is directly used to access the filesystem without proper validation or sanitization.\n\n## Remediations\n\n- **Do not** directly use user input to construct file paths. This can lead to unauthorized file access.\n- **Do** sanitize user input used in file paths. Replace patterns that can navigate out of intended directories, such as `..\\..`, to prevent path traversal attacks.\n  ```javascript\n  var folder = target.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and remove any instances of the NULL byte (\"%00\") in user input to guard against poison NULL byte attacks.\n  ```javascript\n  if (target.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** use path concatenation methods provided by your programming environment to securely combine user input with your base directory path. This ensures the final path starts within the intended scope.\n  ```javascript\n  const path = require(\"path\");\n  var pathname = path.join(\"/public/\", folder);\n  if (pathname.indexOf(\"/public/\") !== 0) {\n    // Handle or reject the input\n  }\n  ```\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_path_traversal",
+            "line_number": 120,
+            "full_filename": "/src/lib/startup/validatePreconditions.ts",
+            "filename": "lib/startup/validatePreconditions.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 120,
+                "end": 120,
+                "column": {
+                    "start": 23,
+                    "end": 62
+                }
+            },
+            "sink": {
+                "start": 120,
+                "end": 120,
+                "column": {
+                    "start": 23,
+                    "end": 62
+                },
+                "content": ""
+            },
+            "parent_line_number": 120,
+            "fingerprint": "f0e7492e80ce50a1aa962aebdf7f5673_0",
+            "old_fingerprint": "b865fafd38e445a76b5495e153460fbd_3",
+            "code_extract": "  return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {"
+        },
+        {
+            "cwe_ids": [
+                "22"
+            ],
+            "id": "javascript_lang_path_traversal",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nUsing unsanitized dynamic input to determine file paths can allow attackers to gain access to files and folders outside of the intended scope. This vulnerability occurs when input provided by users is directly used to access the filesystem without proper validation or sanitization.\n\n## Remediations\n\n- **Do not** directly use user input to construct file paths. This can lead to unauthorized file access.\n- **Do** sanitize user input used in file paths. Replace patterns that can navigate out of intended directories, such as `..\\..`, to prevent path traversal attacks.\n  ```javascript\n  var folder = target.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and remove any instances of the NULL byte (\"%00\") in user input to guard against poison NULL byte attacks.\n  ```javascript\n  if (target.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** use path concatenation methods provided by your programming environment to securely combine user input with your base directory path. This ensures the final path starts within the intended scope.\n  ```javascript\n  const path = require(\"path\");\n  var pathname = path.join(\"/public/\", folder);\n  if (pathname.indexOf(\"/public/\") !== 0) {\n    // Handle or reject the input\n  }\n  ```\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_path_traversal",
+            "line_number": 33,
+            "full_filename": "/src/routes/fileServer.ts",
+            "filename": "routes/fileServer.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 33,
+                "end": 33,
+                "column": {
+                    "start": 20,
+                    "end": 46
+                }
+            },
+            "sink": {
+                "start": 33,
+                "end": 33,
+                "column": {
+                    "start": 20,
+                    "end": 46
+                },
+                "content": ""
+            },
+            "parent_line_number": 33,
+            "fingerprint": "587b585fef3fe70bf57a2f0f19565ff2_0",
+            "old_fingerprint": "1d86048d8acc37d70313106541644420_1",
+            "code_extract": "      res.sendFile(path.resolve('ftp/', file))"
+        },
+        {
+            "cwe_ids": [
+                "22"
+            ],
+            "id": "javascript_lang_path_traversal",
+            "title": "Unsanitized dynamic input in file path",
+            "description": "## Description\n\nUsing unsanitized dynamic input to determine file paths can allow attackers to gain access to files and folders outside of the intended scope. This vulnerability occurs when input provided by users is directly used to access the filesystem without proper validation or sanitization.\n\n## Remediations\n\n- **Do not** directly use user input to construct file paths. This can lead to unauthorized file access.\n- **Do** sanitize user input used in file paths. Replace patterns that can navigate out of intended directories, such as `..\\..`, to prevent path traversal attacks.\n  ```javascript\n  var folder = target.replace(/^(\\.\\.(\\/|\\\\|$))+/, '');\n  ```\n- **Do** check for and remove any instances of the NULL byte (\"%00\") in user input to guard against poison NULL byte attacks.\n  ```javascript\n  if (target.indexOf('\\0') !== -1) {\n    // Handle or reject the input\n  }\n  ```\n- **Do** use path concatenation methods provided by your programming environment to securely combine user input with your base directory path. This ensures the final path starts within the intended scope.\n  ```javascript\n  const path = require(\"path\");\n  var pathname = path.join(\"/public/\", folder);\n  if (pathname.indexOf(\"/public/\") !== 0) {\n    // Handle or reject the input\n  }\n  ```\n\n## References\n\n- [OWASP Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_path_traversal",
+            "line_number": 39,
+            "full_filename": "/src/routes/fileUpload.ts",
+            "filename": "routes/fileUpload.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 39,
+                "end": 39,
+                "column": {
+                    "start": 38,
+                    "end": 84
+                }
+            },
+            "sink": {
+                "start": 39,
+                "end": 39,
+                "column": {
+                    "start": 38,
+                    "end": 84
+                },
+                "content": ""
+            },
+            "parent_line_number": 39,
+            "fingerprint": "648d172bb8d132f757663d42ab913457_0",
+            "old_fingerprint": "104d4a6e48131e6327f3b67d85570421_2",
+            "code_extract": "                const absolutePath = path.resolve('uploads/complaints/' + fileName)"
+        },
+        {
+            "cwe_ids": [
+                "312"
+            ],
+            "id": "javascript_lang_session",
+            "title": "Leakage of sensitive data in local storage",
+            "description": "## Description\n\nStoring sensitive data in `localStorage` poses a security risk. This vulnerability occurs when sensitive information is saved in the browser's local storage, making it susceptible to unauthorized access.\n\n## Remediations\n\n- **Do not** store sensitive data in `localStorage`. This method exposes sensitive information to potential security threats.\n  ```javascript\n  localStorage.setItem('user', email); // unsafe\n  ```\n- **Do** use server-based session storage solutions to keep session data secure. This approach minimizes the risk of sensitive data exposure.\n- **Do** store only non-sensitive data in `localStorage`, such as a unique identifier, to reduce security risks.\n  ```javascript\n  localStorage.setItem('user', user.uuid);\n  ```\n\n## References\n\n- [OWASP sensitive data exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_session",
+            "line_number": 101,
+            "full_filename": "/src/frontend/src/app/login/login.component.ts",
+            "filename": "frontend/src/app/login/login.component.ts",
+            "data_type": {
+                "category_uuid": "cef587dd-76db-430b-9e18-7b031e1a193b",
+                "name": "Email Address"
+            },
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 101,
+                "end": 101,
+                "column": {
+                    "start": 37,
+                    "end": 52
+                }
+            },
+            "sink": {
+                "start": 101,
+                "end": 101,
+                "column": {
+                    "start": 7,
+                    "end": 53
+                },
+                "content": ""
+            },
+            "parent_line_number": 101,
+            "fingerprint": "f9657c5f0e228532df66e6987928ea19_0",
+            "old_fingerprint": "5531391016cef4973f5b08fee6116047_0",
+            "code_extract": "      localStorage.setItem('email', this.user.email)"
+        }
+    ],
+    "medium": [
+        {
+            "cwe_ids": [
+                "693"
+            ],
+            "id": "javascript_express_jwt_not_revoked",
+            "title": "Missing revoke method on JWT",
+            "description": "## Description\n\nFailing to implement a revoke method for JSON Web Tokens (JWTs) can lead to security vulnerabilities, especially when the tokens contain sensitive information. In order to maintain the integrity and confidentiality of any data contained within JWTs, it is best practice caching policy to always revoke them.\n\n## Remediations\n\n- **Do** ensure JWTs are short-lived by implementing a method to revoke them. This reduces the risk of unauthorized access to sensitive information.\n  ```javascript\n  expressjwt({\n    ...\n    isRevoked: this.customRevokeCall(),\n    ...\n  })\n  ```\n\n## References\n\n- [ExpressJWT documentation on revoking tokens](https://github.com/auth0/express-jwt#revoked-tokens)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_jwt_not_revoked",
+            "line_number": 54,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 54,
+                "end": 54,
+                "column": {
+                    "start": 35,
+                    "end": 77
+                }
+            },
+            "sink": {
+                "start": 54,
+                "end": 54,
+                "column": {
+                    "start": 35,
+                    "end": 77
+                },
+                "content": ""
+            },
+            "parent_line_number": 54,
+            "fingerprint": "d5aa377b45e8572a3f1634b5411f5973_0",
+            "old_fingerprint": "be42627546e0756b62490c2bf05a41a2_0",
+            "code_extract": "export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)"
+        },
+        {
+            "cwe_ids": [
+                "693"
+            ],
+            "id": "javascript_express_jwt_not_revoked",
+            "title": "Missing revoke method on JWT",
+            "description": "## Description\n\nFailing to implement a revoke method for JSON Web Tokens (JWTs) can lead to security vulnerabilities, especially when the tokens contain sensitive information. In order to maintain the integrity and confidentiality of any data contained within JWTs, it is best practice caching policy to always revoke them.\n\n## Remediations\n\n- **Do** ensure JWTs are short-lived by implementing a method to revoke them. This reduces the risk of unauthorized access to sensitive information.\n  ```javascript\n  expressjwt({\n    ...\n    isRevoked: this.customRevokeCall(),\n    ...\n  })\n  ```\n\n## References\n\n- [ExpressJWT documentation on revoking tokens](https://github.com/auth0/express-jwt#revoked-tokens)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_jwt_not_revoked",
+            "line_number": 55,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 55,
+                "end": 55,
+                "column": {
+                    "start": 30,
+                    "end": 79
+                }
+            },
+            "sink": {
+                "start": 55,
+                "end": 55,
+                "column": {
+                    "start": 30,
+                    "end": 79
+                },
+                "content": ""
+            },
+            "parent_line_number": 55,
+            "fingerprint": "d5aa377b45e8572a3f1634b5411f5973_1",
+            "old_fingerprint": "be42627546e0756b62490c2bf05a41a2_1",
+            "code_extract": "export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)"
+        },
+        {
+            "cwe_ids": [
+                "601"
+            ],
+            "id": "javascript_express_open_redirect",
+            "title": "Unsanitized user input in redirect",
+            "description": "## Description\n\nUsing unsanitized user input for redirection can expose your application to phishing attacks. This vulnerability occurs when user input directly influences the destination of a redirect without proper validation, making it easier for attackers to redirect users to malicious sites.\n\n## Remediations\n\n- **Do not** use unsanitized user input to construct URLs for redirection. This can lead to security vulnerabilities where attackers could exploit the redirect to lead users to malicious sites.\n- **Do** validate user input by employing a safe list or a mapping strategy for constructing URLs. This ensures that only pre-approved destinations are used for redirects, significantly reducing the risk of phishing attacks.\n  ```javascript\n  var map = {\n    \"1\": \"/planes\",\n    \"2\": \"/trains\",\n    \"3\": \"/automobiles\",\n  }\n\n  res.redirect(map[req.body.transport])\n  ```\n\n## References\n\n- [OWASP Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_express_open_redirect",
+            "line_number": 19,
+            "full_filename": "/src/routes/redirect.ts",
+            "filename": "routes/redirect.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 19,
+                "end": 19,
+                "column": {
+                    "start": 7,
+                    "end": 26
+                }
+            },
+            "sink": {
+                "start": 19,
+                "end": 19,
+                "column": {
+                    "start": 7,
+                    "end": 26
+                },
+                "content": ""
+            },
+            "parent_line_number": 19,
+            "fingerprint": "f351c85327733db80d3dc0c23cf794bf_0",
+            "old_fingerprint": "5cbad6fb867a49025862031e67b2a5a4_0",
+            "code_extract": "      res.redirect(toUrl)"
+        },
+        {
+            "cwe_ids": [
+                "1333"
+            ],
+            "id": "javascript_lang_dynamic_regex",
+            "title": "Unsanitized dynamic input in regular expression",
+            "description": "## Description\n\nCreating regular expressions from dynamic input can lead to a vulnerability known as Regular Expression Denial of Service (ReDoS). This issue arises because some regular expressions can be processed with exponential time complexity. When attackers exploit this, it can significantly drain CPU resources, effectively causing a denial of service.\n\n## Remediations\n\n- **Do** validate all dynamic and user-supplied input against a strict safelist of allowed characters before using it in regular expressions. This step helps prevent attackers from injecting malicious patterns.\n- **Do** restrict the length of input that can be processed. Limiting input size is a straightforward way to mitigate many ReDoS vulnerabilities.\n- **Do** implement timeouts for regular expression evaluation to avoid excessive resource consumption. This can be achieved using JavaScript environments or libraries that allow setting execution time limits.\n- **Do** simplify complex regular expressions to reduce the risk of catastrophic backtracking. Breaking down expressions into simpler parts makes them safer and more manageable.\n- **Do not** directly concatenate user input into regular expressions. This practice can introduce unsafe patterns and lead to vulnerabilities.\n  ```javascript\n  var dynamicRegex = new RegExp('^' + userInput); // unsafe\n  ```\n\n## References\n\n- [OWASP Regular expression Denial of Service - ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_dynamic_regex",
+            "line_number": 76,
+            "full_filename": "/src/lib/codingChallenges.ts",
+            "filename": "lib/codingChallenges.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 76,
+                "end": 76,
+                "column": {
+                    "start": 9,
+                    "end": 67
+                }
+            },
+            "sink": {
+                "start": 76,
+                "end": 76,
+                "column": {
+                    "start": 9,
+                    "end": 67
+                },
+                "content": ""
+            },
+            "parent_line_number": 76,
+            "fingerprint": "b1383ae4397a0603f1d7d1985685c117_0",
+            "old_fingerprint": "d1e8db218c72f96fcc2c2920d27e9937_0",
+            "code_extract": "    if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {"
+        },
+        {
+            "cwe_ids": [
+                "1333"
+            ],
+            "id": "javascript_lang_dynamic_regex",
+            "title": "Unsanitized dynamic input in regular expression",
+            "description": "## Description\n\nCreating regular expressions from dynamic input can lead to a vulnerability known as Regular Expression Denial of Service (ReDoS). This issue arises because some regular expressions can be processed with exponential time complexity. When attackers exploit this, it can significantly drain CPU resources, effectively causing a denial of service.\n\n## Remediations\n\n- **Do** validate all dynamic and user-supplied input against a strict safelist of allowed characters before using it in regular expressions. This step helps prevent attackers from injecting malicious patterns.\n- **Do** restrict the length of input that can be processed. Limiting input size is a straightforward way to mitigate many ReDoS vulnerabilities.\n- **Do** implement timeouts for regular expression evaluation to avoid excessive resource consumption. This can be achieved using JavaScript environments or libraries that allow setting execution time limits.\n- **Do** simplify complex regular expressions to reduce the risk of catastrophic backtracking. Breaking down expressions into simpler parts makes them safer and more manageable.\n- **Do not** directly concatenate user input into regular expressions. This practice can introduce unsafe patterns and lead to vulnerabilities.\n  ```javascript\n  var dynamicRegex = new RegExp('^' + userInput); // unsafe\n  ```\n\n## References\n\n- [OWASP Regular expression Denial of Service - ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_dynamic_regex",
+            "line_number": 78,
+            "full_filename": "/src/lib/codingChallenges.ts",
+            "filename": "lib/codingChallenges.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 78,
+                "end": 78,
+                "column": {
+                    "start": 16,
+                    "end": 77
+                }
+            },
+            "sink": {
+                "start": 78,
+                "end": 78,
+                "column": {
+                    "start": 16,
+                    "end": 77
+                },
+                "content": ""
+            },
+            "parent_line_number": 78,
+            "fingerprint": "b1383ae4397a0603f1d7d1985685c117_1",
+            "old_fingerprint": "d1e8db218c72f96fcc2c2920d27e9937_1",
+            "code_extract": "    } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {"
+        },
+        {
+            "cwe_ids": [
+                "532"
+            ],
+            "id": "javascript_lang_logger",
+            "title": "Leakage of sensitive information in logger message",
+            "description": "## Description\n\nSensitive information leakage through logger messages can compromise user privacy and security. This vulnerability occurs when sensitive data, such as personal identifiable information (PII), is included in log messages, making it accessible to unauthorized individuals.\n\n## Remediations\n\n- **Do not** include sensitive data in logger messages. This can lead to unintended exposure of private information.\n  ```javascript\n  logger.info(`User is: ${user.email}`) // unsafe\n  ```\n- **Do** use non-sensitive, unique identifiers to reference users in log messages. This approach maintains user privacy while still allowing for effective logging.\n  ```javascript\n  logger.info(`User is: ${user.uuid}`)\n  ```\n## References\n\n- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_logger",
+            "line_number": 108,
+            "full_filename": "/src/frontend/src/app/faucet/faucet.component.ts",
+            "filename": "frontend/src/app/faucet/faucet.component.ts",
+            "data_type": {
+                "category_uuid": "cef587dd-76db-430b-9e18-7b031e1a193b",
+                "name": "Physical Address"
+            },
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 106,
+                "end": 106,
+                "column": {
+                    "start": 33,
+                    "end": 50
+                }
+            },
+            "sink": {
+                "start": 108,
+                "end": 108,
+                "column": {
+                    "start": 7,
+                    "end": 36
+                },
+                "content": ""
+            },
+            "parent_line_number": 108,
+            "fingerprint": "c44141692e5287b9db7db0edad5e66ca_0",
+            "old_fingerprint": "2a794e9a9bfcef4b11ccef8901e5a80e_0",
+            "code_extract": "      console.log(balanceBigNumber)"
+        },
+        {
+            "cwe_ids": [
+                "532"
+            ],
+            "id": "javascript_lang_logger",
+            "title": "Leakage of sensitive information in logger message",
+            "description": "## Description\n\nSensitive information leakage through logger messages can compromise user privacy and security. This vulnerability occurs when sensitive data, such as personal identifiable information (PII), is included in log messages, making it accessible to unauthorized individuals.\n\n## Remediations\n\n- **Do not** include sensitive data in logger messages. This can lead to unintended exposure of private information.\n  ```javascript\n  logger.info(`User is: ${user.email}`) // unsafe\n  ```\n- **Do** use non-sensitive, unique identifiers to reference users in log messages. This approach maintains user privacy while still allowing for effective logging.\n  ```javascript\n  logger.info(`User is: ${user.uuid}`)\n  ```\n## References\n\n- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_logger",
+            "line_number": 213,
+            "full_filename": "/src/frontend/src/app/faucet/faucet.component.ts",
+            "filename": "frontend/src/app/faucet/faucet.component.ts",
+            "data_type": {
+                "category_uuid": "cef587dd-76db-430b-9e18-7b031e1a193b",
+                "name": "Physical Address"
+            },
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 207,
+                "end": 207,
+                "column": {
+                    "start": 33,
+                    "end": 50
+                }
+            },
+            "sink": {
+                "start": 213,
+                "end": 213,
+                "column": {
+                    "start": 7,
+                    "end": 65
+                },
+                "content": ""
+            },
+            "parent_line_number": 213,
+            "fingerprint": "c44141692e5287b9db7db0edad5e66ca_1",
+            "old_fingerprint": "2a794e9a9bfcef4b11ccef8901e5a80e_1",
+            "code_extract": "      console.log('ETH balance:', balanceEth, typeof balanceEth)"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 23,
+            "full_filename": "/src/data/static/codefixes/loginAdminChallenge_1.ts",
+            "filename": "data/static/codefixes/loginAdminChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 23,
+            "fingerprint": "ddce43a74e03835cc5176d883fa5147c_0",
+            "old_fingerprint": "ff9ab500b6a27733a4d4c880115e820c_11",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginAdminChallenge_2.ts",
+            "filename": "data/static/codefixes/loginAdminChallenge_2.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "5e0da817764d3f03af9364abb217f48c_0",
+            "old_fingerprint": "968662d1cbe24509acbc75d861a892ed_2",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginAdminChallenge_3.ts",
+            "filename": "data/static/codefixes/loginAdminChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "8ad315097757a2b3ff7609bcc91bbfc9_0",
+            "old_fingerprint": "eec85a7de94c2e99e8cae0b178dce57d_3",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginAdminChallenge_4_correct.ts",
+            "filename": "data/static/codefixes/loginAdminChallenge_4_correct.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "60d58748bb9e287277a7aff73bd1ae52_0",
+            "old_fingerprint": "a1aed582e4045b0a0baf356a73155818_4",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 23,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_1.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_1.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 23,
+            "fingerprint": "b329a3b5b9ab5d5f0f132c8c44f91071_0",
+            "old_fingerprint": "e21c4f5f7e5845d71300c7f1aa8270e7_9",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_2_correct.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_2_correct.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "f199bd3000c79816596f8e7f4c3e43dc_0",
+            "old_fingerprint": "0df15600e4a4fd4592e8eb86b76597e1_6",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_3.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "5c0be5357927e85fc8cd03a2efa06eb1_0",
+            "old_fingerprint": "2c20ba8dda1f17e00810e63efb3ff9cf_7",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 20,
+            "full_filename": "/src/data/static/codefixes/loginBenderChallenge_4.ts",
+            "filename": "data/static/codefixes/loginBenderChallenge_4.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 20,
+            "fingerprint": "f2f8302695eb708410bda145fd6efbac_0",
+            "old_fingerprint": "24c60738748eb77a67269c5309592fae_1",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_1_correct.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_1_correct.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "f8192230416fc3abc5fa408aa5270b77_0",
+            "old_fingerprint": "ab7af744d826011ac4de3c0747e94f22_8",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 20,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_2.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_2.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 20,
+                "end": 20,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 20,
+            "fingerprint": "efffa8a04606868bf214043807bcce15_0",
+            "old_fingerprint": "7212d05b493235c122e95b33412cddd9_0",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 21,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_3.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_3.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 21,
+                "end": 21,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 21,
+            "fingerprint": "db457612259c823f20ba2d998356c3b4_0",
+            "old_fingerprint": "813fb105d5c3f4cf19927c6d7c76efc2_5",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 23,
+            "full_filename": "/src/data/static/codefixes/loginJimChallenge_4.ts",
+            "filename": "data/static/codefixes/loginJimChallenge_4.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 23,
+                "end": 23,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 23,
+            "fingerprint": "e29c9c01dd359d4a4f313fd27eceb380_0",
+            "old_fingerprint": "8b403660d5b94b00d424946cad2f399c_10",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 80,
+            "full_filename": "/src/frontend/src/app/change-password/change-password.component.ts",
+            "filename": "frontend/src/app/change-password/change-password.component.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 80,
+                "end": 80,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                }
+            },
+            "sink": {
+                "start": 80,
+                "end": 80,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                },
+                "content": ""
+            },
+            "parent_line_number": 80,
+            "fingerprint": "1d311dd87187433d76469f878c149afb_0",
+            "old_fingerprint": "73a7b0620d05ff20d794421064f83a66_16",
+            "code_extract": "    if (password !== passwordRepeat) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 118,
+            "full_filename": "/src/frontend/src/app/forgot-password/forgot-password.component.ts",
+            "filename": "frontend/src/app/forgot-password/forgot-password.component.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 118,
+                "end": 118,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                }
+            },
+            "sink": {
+                "start": 118,
+                "end": 118,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                },
+                "content": ""
+            },
+            "parent_line_number": 118,
+            "fingerprint": "8bea3e98a9aa99c090f545cfab18ea05_0",
+            "old_fingerprint": "c72d3b37b5cff5dfe0361a7a4af27b21_21",
+            "code_extract": "    if (password !== passwordRepeat) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 93,
+            "full_filename": "/src/frontend/src/app/register/register.component.ts",
+            "filename": "frontend/src/app/register/register.component.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 93,
+                "end": 93,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                }
+            },
+            "sink": {
+                "start": 93,
+                "end": 93,
+                "column": {
+                    "start": 9,
+                    "end": 36
+                },
+                "content": ""
+            },
+            "parent_line_number": 93,
+            "fingerprint": "22c71da8e7a35dd1e1e3bd03b4fc99f2_0",
+            "old_fingerprint": "5d19c3b09ba54feb4753b9a9c547b024_17",
+            "code_extract": "    if (password !== passwordRepeat) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 255,
+            "full_filename": "/src/frontend/src/hacking-instructor/helpers/helpers.ts",
+            "filename": "frontend/src/hacking-instructor/helpers/helpers.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 255,
+                "end": 255,
+                "column": {
+                    "start": 11,
+                    "end": 48
+                }
+            },
+            "sink": {
+                "start": 255,
+                "end": 255,
+                "column": {
+                    "start": 11,
+                    "end": 48
+                },
+                "content": ""
+            },
+            "parent_line_number": 255,
+            "fingerprint": "0a9fc6a91f03fe2bc9ede0de2e9d87cf_0",
+            "old_fingerprint": "4e74961d69e9475115629230ccfcbcd2_24",
+            "code_extract": "      if (window.location.hash === expectedHash) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 169,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 169,
+                "end": 169,
+                "column": {
+                    "start": 90,
+                    "end": 164
+                }
+            },
+            "sink": {
+                "start": 169,
+                "end": 169,
+                "column": {
+                    "start": 90,
+                    "end": 164
+                },
+                "content": ""
+            },
+            "parent_line_number": 169,
+            "fingerprint": "86871ecafb473c930b61161f8026e00f_0",
+            "old_fingerprint": "92a39db8d6ea07f51888fdfef1744733_23",
+            "code_extract": "  return decodedToken?.data?.role === roles.deluxe && decodedToken?.data?.deluxeToken && decodedToken?.data?.deluxeToken === deluxeToken(decodedToken?.data?.email)"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 73,
+            "full_filename": "/src/routes/2fa.ts",
+            "filename": "routes/2fa.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 73,
+                "end": 73,
+                "column": {
+                    "start": 9,
+                    "end": 31
+                }
+            },
+            "sink": {
+                "start": 73,
+                "end": 73,
+                "column": {
+                    "start": 9,
+                    "end": 31
+                },
+                "content": ""
+            },
+            "parent_line_number": 73,
+            "fingerprint": "d81ef3141d58e8551b76596b89a290d1_0",
+            "old_fingerprint": "e48b3bacfbca184763d5771999e39141_15",
+            "code_extract": "    if (user.totpSecret === '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 114,
+            "full_filename": "/src/routes/2fa.ts",
+            "filename": "routes/2fa.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 114,
+                "end": 114,
+                "column": {
+                    "start": 9,
+                    "end": 50
+                }
+            },
+            "sink": {
+                "start": 114,
+                "end": 114,
+                "column": {
+                    "start": 9,
+                    "end": 50
+                },
+                "content": ""
+            },
+            "parent_line_number": 114,
+            "fingerprint": "d81ef3141d58e8551b76596b89a290d1_1",
+            "old_fingerprint": "e48b3bacfbca184763d5771999e39141_19",
+            "code_extract": "    if (user.password !== security.hash(password)) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 118,
+            "full_filename": "/src/routes/2fa.ts",
+            "filename": "routes/2fa.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 118,
+                "end": 118,
+                "column": {
+                    "start": 9,
+                    "end": 31
+                }
+            },
+            "sink": {
+                "start": 118,
+                "end": 118,
+                "column": {
+                    "start": 9,
+                    "end": 31
+                },
+                "content": ""
+            },
+            "parent_line_number": 118,
+            "fingerprint": "d81ef3141d58e8551b76596b89a290d1_2",
+            "old_fingerprint": "e48b3bacfbca184763d5771999e39141_20",
+            "code_extract": "    if (user.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 159,
+            "full_filename": "/src/routes/2fa.ts",
+            "filename": "routes/2fa.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 159,
+                "end": 159,
+                "column": {
+                    "start": 9,
+                    "end": 50
+                }
+            },
+            "sink": {
+                "start": 159,
+                "end": 159,
+                "column": {
+                    "start": 9,
+                    "end": 50
+                },
+                "content": ""
+            },
+            "parent_line_number": 159,
+            "fingerprint": "d81ef3141d58e8551b76596b89a290d1_3",
+            "old_fingerprint": "e48b3bacfbca184763d5771999e39141_22",
+            "code_extract": "    if (user.password !== security.hash(password)) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 28,
+            "full_filename": "/src/routes/changePassword.ts",
+            "filename": "routes/changePassword.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 28,
+                "end": 28,
+                "column": {
+                    "start": 32,
+                    "end": 93
+                }
+            },
+            "sink": {
+                "start": 28,
+                "end": 28,
+                "column": {
+                    "start": 32,
+                    "end": 93
+                },
+                "content": ""
+            },
+            "parent_line_number": 28,
+            "fingerprint": "24e131a07d49a212d37417b226761e7e_0",
+            "old_fingerprint": "2230a11b92188d9c24d2bb443efca5b9_12",
+            "code_extract": "        if (currentPassword && security.hash(currentPassword) !== loggedInUser.data.password) {"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 34,
+            "full_filename": "/src/routes/changePassword.ts",
+            "filename": "routes/changePassword.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 34,
+                "end": 34,
+                "column": {
+                    "start": 134,
+                    "end": 181
+                }
+            },
+            "sink": {
+                "start": 34,
+                "end": 34,
+                "column": {
+                    "start": 134,
+                    "end": 181
+                },
+                "content": ""
+            },
+            "parent_line_number": 34,
+            "fingerprint": "24e131a07d49a212d37417b226761e7e_1",
+            "old_fingerprint": "2230a11b92188d9c24d2bb443efca5b9_13",
+            "code_extract": "                challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 100,
+            "full_filename": "/src/routes/dataExport.ts",
+            "filename": "routes/dataExport.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 100,
+                "end": 100,
+                "column": {
+                    "start": 83,
+                    "end": 124
+                }
+            },
+            "sink": {
+                "start": 100,
+                "end": 100,
+                "column": {
+                    "start": 83,
+                    "end": 124
+                },
+                "content": ""
+            },
+            "parent_line_number": 100,
+            "fingerprint": "7d11d6fe20df3420d971b5fdddce370c_0",
+            "old_fingerprint": "86e9336d16e61e8fb1dff483af473151_18",
+            "code_extract": "            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })"
+        },
+        {
+            "cwe_ids": [
+                "208"
+            ],
+            "id": "javascript_lang_observable_timing",
+            "title": "Observable Timing Discrepancy",
+            "description": "## Description\n\nObservable Timing Discrepancy occurs when the time it takes for certain operations to complete can be measured and observed by attackers. This vulnerability is particularly concerning when operations involve sensitive information, such as password checks or secret comparisons. If attackers can analyze how long these operations take, they might be able to deduce confidential details, putting your data at risk.\n\n## Remediations\n\n- **Do** implement algorithms that process sensitive information in constant time. This approach helps prevent attackers from guessing secrets based on the duration of operations.\n- **Do** use built-in security features and cryptographic libraries that offer functions safe from timing attacks for comparing secret values.\n- **Do not** use direct string comparisons for sensitive information, as this can lead to early termination of the function if a mismatch is found, revealing timing information.\n  ```javascript\n    if (apiToken === \"zDE9ET!TDq2uZx2oM!FD2\") { // unsafe\n      ...\n    }\n  ```\n- **Do not** design application logic that changes execution paths in a manner that could introduce timing discrepancies based on user input or secret values.\n\n## References\n\n- [OWASP Guide to Cryptography](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)\n- [MDN Web Docs on SubtleCrypto API](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_observable_timing",
+            "line_number": 39,
+            "full_filename": "/src/routes/login.ts",
+            "filename": "routes/login.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 39,
+                "end": 39,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                }
+            },
+            "sink": {
+                "start": 39,
+                "end": 39,
+                "column": {
+                    "start": 30,
+                    "end": 57
+                },
+                "content": ""
+            },
+            "parent_line_number": 39,
+            "fingerprint": "d1bc10543b48b63f88106e770ff22029_0",
+            "old_fingerprint": "9758fd4533ab996280886b6ec5eb8f92_14",
+            "code_extract": "        if (user.data?.id && user.data.totpSecret !== '') {"
+        },
+        {
+            "cwe_ids": [
+                "328"
+            ],
+            "id": "javascript_lang_weak_hash_md5",
+            "title": "Usage of weak hashing library (MD5)",
+            "description": "## Description\n\nUsing a weak hashing library like MD5 increases the risk of data breaches. MD5 is vulnerable to collision attacks, where two different inputs produce the same output, compromising data integrity and security.\n\n## Remediations\n\n- **Do not** use MD5 for hashing or security purposes. It is no longer considered secure for cryptographic applications.\n- **Do** opt for stronger hashing algorithms like SHA-256 for enhanced security.\n  ```javascript\n  const crypto = require(\"crypto\");\n\n  const key = \"secret key\";\n  const hash = crypto.createHmac(\"sha256\", key).update(user.password).digest('hex');\n  ```\n\n## References\n\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_weak_hash_md5",
+            "line_number": 78,
+            "full_filename": "/src/Gruntfile.js",
+            "filename": "Gruntfile.js",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 78,
+                "end": 78,
+                "column": {
+                    "start": 7,
+                    "end": 25
+                }
+            },
+            "sink": {
+                "start": 78,
+                "end": 78,
+                "column": {
+                    "start": 7,
+                    "end": 25
+                },
+                "content": ""
+            },
+            "parent_line_number": 78,
+            "fingerprint": "21fa322fb6bf051a5864e6b1e84c7d36_0",
+            "old_fingerprint": "ba8af7a3a6ff913837579921e3c6cd77_1",
+            "code_extract": "      md5.update(buffer)"
+        },
+        {
+            "cwe_ids": [
+                "328"
+            ],
+            "id": "javascript_lang_weak_hash_md5",
+            "title": "Usage of weak hashing library (MD5)",
+            "description": "## Description\n\nUsing a weak hashing library like MD5 increases the risk of data breaches. MD5 is vulnerable to collision attacks, where two different inputs produce the same output, compromising data integrity and security.\n\n## Remediations\n\n- **Do not** use MD5 for hashing or security purposes. It is no longer considered secure for cryptographic applications.\n- **Do** opt for stronger hashing algorithms like SHA-256 for enhanced security.\n  ```javascript\n  const crypto = require(\"crypto\");\n\n  const key = \"secret key\";\n  const hash = crypto.createHmac(\"sha256\", key).update(user.password).digest('hex');\n  ```\n\n## References\n\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html)",
+            "documentation_url": "https://docs.bearer.com/reference/rules/javascript_lang_weak_hash_md5",
+            "line_number": 43,
+            "full_filename": "/src/lib/insecurity.ts",
+            "filename": "lib/insecurity.ts",
+            "category_groups": [
+                "PII",
+                "Personal Data"
+            ],
+            "source": {
+                "start": 43,
+                "end": 43,
+                "column": {
+                    "start": 39,
+                    "end": 76
+                }
+            },
+            "sink": {
+                "start": 43,
+                "end": 43,
+                "column": {
+                    "start": 39,
+                    "end": 76
+                },
+                "content": ""
+            },
+            "parent_line_number": 43,
+            "fingerprint": "42a76a8c10a52b38c1b8729a2f211830_0",
+            "old_fingerprint": "7bcb0f89183d2d3fe86f9b10812a5f28_0",
+            "code_extract": "export const hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')"
+        }
+    ]
+}

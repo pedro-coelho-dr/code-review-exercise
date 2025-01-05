@@ -1,0 +1,22 @@
+ruleId,count,uris
+javascript/DOMXSS,1,['frontend/src/app/data-export/data-export.component.ts']
+javascript/NoSqli,5,"['routes/likeProductReviews.ts', 'routes/updateProductReviews.ts']"
+javascript/JwtDecodeMethod,1,['routes/authenticatedUsers.ts']
+javascript/HardcodedNonCryptoSecret,2,['lib/insecurity.ts']
+javascript/NoHardcodedPasswords/test,144,"['test/cypress/e2e/totpSetup.spec.ts', 'test/cypress/e2e/dataExport.spec.ts', 'test/cypress/e2e/chatbot.spec.ts', 'test/api/profileImageUploadSpec.ts', 'test/cypress/e2e/noSql.spec.ts', 'test/api/userProfileSpec.ts', 'test/cypress/e2e/b2bOrder.spec.ts', 'test/api/quantityApiSpec.ts', 'test/api/deluxeApiSpec.ts', 'test/cypress/e2e/contact.spec.ts', 'test/api/basketItemApiSpec.ts', 'test/cypress/e2e/changePassword.spec.ts', 'test/cypress/e2e/profile.spec.ts', 'test/cypress/e2e/deluxe.spec.ts', 'test/api/dataExportApiSpec.ts', 'test/cypress/e2e/restApi.spec.ts', 'test/cypress/e2e/search.spec.ts', 'test/cypress/e2e/complain.spec.ts', 'test/api/orderHistoryApiSpec.ts', 'test/api/memoryApiSpec.ts', 'test/api/userApiSpec.ts', 'test/api/feedbackApiSpec.ts', 'test/cypress/e2e/dataErasure.spec.ts', 'test/api/chatBotSpec.ts', 'test/api/deliveryApiSpec.ts', 'test/api/addressApiSpec.ts', 'test/api/loginApiSpec.ts', 'test/api/productReviewApiSpec.ts', 'test/cypress/e2e/administration.spec.ts', 'test/api/erasureRequestApiSpec.ts', 'test/api/authenticatedUsersSpec.ts', 'test/api/paymentApiSpec.ts', 'test/api/basketApiSpec.ts', 'test/api/passwordApiSpec.ts', 'test/cypress/e2e/basket.spec.ts', 'test/api/2faSpec.ts', 'test/cypress/e2e/register.spec.ts']"
+javascript/NoHardcodedCredentials/test,24,"['test/cypress/e2e/totpSetup.spec.ts', 'test/cypress/e2e/contact.spec.ts', 'test/cypress/e2e/dataExport.spec.ts', 'test/cypress/e2e/administration.spec.ts', 'test/cypress/e2e/dataErasure.spec.ts', 'test/cypress/e2e/changePassword.spec.ts', 'test/cypress/e2e/chatbot.spec.ts', 'test/cypress/e2e/profile.spec.ts', 'test/cypress/e2e/b2bOrder.spec.ts', 'test/cypress/e2e/noSql.spec.ts', 'test/cypress/e2e/restApi.spec.ts', 'test/cypress/e2e/search.spec.ts', 'test/cypress/e2e/complain.spec.ts', 'test/cypress/e2e/basket.spec.ts', 'test/cypress/e2e/register.spec.ts']"
+javascript/ZipSlip,1,['routes/fileUpload.ts']
+javascript/HTTPSourceWithUncheckedType,11,"['server.ts', 'routes/profileImageUrlUpload.ts', 'routes/vulnCodeSnippet.ts']"
+javascript/UseCsurfForExpress,1,['server.ts']
+javascript/PrototypePollution,4,"['routes/vulnCodeFixes.ts', 'routes/vulnCodeSnippet.ts']"
+javascript/NoRateLimitingForExpensiveWebOperation,11,"['routes/dataErasure.ts', 'routes/privacyPolicyProof.ts', 'routes/vulnCodeSnippet.ts', 'routes/profileImageFileUpload.ts', 'routes/vulnCodeFixes.ts', 'routes/premiumReward.ts', 'routes/easterEgg.ts', 'routes/videoHandler.ts', 'routes/userProfile.ts', 'routes/languages.ts']"
+javascript/NoHardcodedPasswords,5,"['frontend/src/app/Services/two-factor-auth-service.spec.ts', 'frontend/src/app/oauth/oauth.component.spec.ts']"
+javascript/Sqli,5,"['data/static/codefixes/unionSqlInjectionChallenge_3.ts', 'data/static/codefixes/dbSchemaChallenge_1.ts', 'data/static/codefixes/unionSqlInjectionChallenge_1.ts', 'routes/search.ts', 'routes/login.ts']"
+javascript/PT,7,"['routes/vulnCodeSnippet.ts', 'routes/profileImageFileUpload.ts', 'routes/vulnCodeFixes.ts', 'routes/profileImageUrlUpload.ts', 'routes/languages.ts']"
+javascript/HardcodedSecret,3,['lib/insecurity.ts']
+javascript/XSS,9,"['frontend/src/app/about/about.component.ts', 'frontend/src/app/search-result/search-result.component.ts', 'frontend/src/app/last-login-ip/last-login-ip.component.ts', 'routes/recycles.ts', 'frontend/src/app/data-export/data-export.component.ts', 'frontend/src/app/administration/administration.component.ts', 'routes/userProfile.ts', 'frontend/src/app/track-result/track-result.component.ts']"
+javascript/InsecureHash,2,"['Gruntfile.js', 'lib/insecurity.ts']"
+javascript/Ssrf,1,['routes/profileImageUrlUpload.ts']
+javascript/HardcodedSecret/test,1,['test/api/2faSpec.ts']
+javascript/HttpToHttps/test,1,['test/api/productReviewApiSpec.ts']
+javascript/HardcodedNonCryptoSecret/test,24,"['test/cypress/e2e/totpSetup.spec.ts', 'test/api/web3Spec.ts', 'test/api/2faSpec.ts']"
