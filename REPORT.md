@@ -16,11 +16,18 @@
     - [4. Bearer](#4-bearer)
     - [5. Snyk](#5-snyk)
     - [6. Semgrep](#6-semgrep)
-  - [Achados](#achados)
-    - [1. Vulnerabilidades Críticas em Dependências](#1-vulnerabilidades-críticas-em-dependências)
-    - [2. Leaks de Segredos no Código](#2-leaks-de-segredos-no-código)
-    - [2. Hardcoded Credentials](#2-hardcoded-credentials)
-    - [3. SQL Injection](#3-sql-injection)
+- [Achados](#achados)
+  - [1. Vulnerabilidades Críticas em Dependências](#1-vulnerabilidades-críticas-em-dependências)
+  - [2. Leaks de Segredos no Código](#2-leaks-de-segredos-no-código)
+  - [2. Hardcoded Credentials](#2-hardcoded-credentials)
+  - [3. SQL Injection](#3-sql-injection)
+  - [4. NoSQL Injection](#4-nosql-injection)
+  - [5. Path Traversal](#5-path-traversal)
+  - [6. Server-Side Request Forgery (SSRF)](#6-server-side-request-forgery-ssrf)
+  - [7. Cross-site Scripting (XSS)](#7-cross-site-scripting-xss)
+  - [8. Arbitrary File Write via Archive Extraction](#8-arbitrary-file-write-via-archive-extraction)
+  - [9. Observable Timing Discrepancy](#9-observable-timing-discrepancy)
+  - [10. Denial-of-Service (DoS) via ReDoS](#10-denial-of-service-dos-via-redos)
 
 
 ## Introdução
@@ -115,9 +122,9 @@ Relatórios disponíveis nos formatos [JSON](reports/semgrep/prettified-semgrep-
 - [Análise Exploratória](reports/semgrep/notebook.ipynb)
 
 
-## Achados
+# Achados
 
-### 1. Vulnerabilidades Críticas em Dependências
+## 1. Vulnerabilidades Críticas em Dependências
 
 Utilizando a ferramenta Dependency Check, foram identificadas **156 vulnerabilidades**, das quais **22 são críticas**. Os gráficos apresentados abaixo ilustram a distribuição das vulnerabilidades por severidade e destacam a quantidade de vulnerabilidades críticas por dependência.
 
@@ -183,22 +190,17 @@ Dependências Afetadas:
 
 **Recomendações:**
 
-1. Atualização de Dependências:
-   - Atualizar para versões seguras das bibliotecas listadas, priorizando aquelas com vulnerabilidades críticas.
+1. Atualização de Dependências: Atualizar para versões seguras das bibliotecas listadas, priorizando aquelas com vulnerabilidades críticas.
    
-2. Revisão de Implementações:
-   - Verificar pontos críticos do sistema onde as dependências afetadas são utilizadas para minimizar o impacto de vulnerabilidades não corrigidas.
+1. Revisão de Implementações: Verificar pontos críticos do sistema onde as dependências afetadas são utilizadas para minimizar o impacto de vulnerabilidades não corrigidas.
 
-3. Adoção de Ferramentas de SCA Contínuas:
-   - Integrar ferramentas como Dependency Check ou Snyk no pipeline de CI/CD para detecção precoce de vulnerabilidades em dependências.
+1. Adoção de Ferramentas de SCA Contínuas: Integrar ferramentas como Dependency Check ou Snyk no pipeline de CI/CD para detecção precoce de vulnerabilidades em dependências.
 
-4. Hardening do Código:
-   - Adotar padrões de desenvolvimento seguro, incluindo a validação de entradas e a utilização de algoritmos criptográficos recomendados.
+2. Hardening do Código: Adotar padrões de desenvolvimento seguro, incluindo a validação de entradas e a utilização de algoritmos criptográficos recomendados.
 
-5. Monitoramento Contínuo:
-   - Acompanhar atualizações de segurança em dependências críticas e garantir que versões vulneráveis sejam rapidamente substituídas.
+3. Monitoramento Contínuo: Acompanhar atualizações de segurança em dependências críticas e garantir que versões vulneráveis sejam rapidamente substituídas.
 
-### 2. Leaks de Segredos no Código
+## 2. Leaks de Segredos no Código
 
 Durante a análise com ferramentas como Gitleaks e Horusec, foram identificados *leaks* de segredos em diversos arquivos do projeto. Esses segredos incluem **API Keys**, **JWTs** e **chaves privadas**. O gráfico abaixo ilustra a distribuição desses achados entre os arquivos analisados.
 
@@ -262,11 +264,11 @@ Durante a análise com ferramentas como Gitleaks e Horusec, foram identificados 
   - Revogar e substituir chaves comprometidas imediatamente.
 
 
-### 2. Hardcoded Credentials
+## 2. Hardcoded Credentials
 
 Durante a análise, foram detectadas múltiplas credenciais codificadas diretamente no código, o que representa um risco significativo à segurança. Esses dados incluem informações como senhas base64 codificadas diretamente nos métodos de autenticação.
 
-- Arquivo:** `frontend/src/app/oauth/oauth.component.spec.ts`
+- Arquivo:`frontend/src/app/oauth/oauth.component.spec.ts`
 
 - Linha 85:
   ```typescript
@@ -285,6 +287,41 @@ Durante a análise, foram detectadas múltiplas credenciais codificadas diretame
   - Validação em CI/CD: Configure ferramentas como Gitleaks para detectar automaticamente credenciais codificadas nos pipelines de build.
 
 
-### 3. SQL Injection
+## 3. SQL Injection
+
+## 4. NoSQL Injection
+
+## 5. Path Traversal
+
+## 6. Server-Side Request Forgery (SSRF)
 
 
+## 7. Cross-site Scripting (XSS)
+
+
+## 8. Arbitrary File Write via Archive Extraction
+
+
+## 9. Observable Timing Discrepancy
+Filename: frontend/src/app/forgot-password/forgot-password.component.ts:118
+
+
+## 10. Denial-of-Service (DoS) via ReDoS
+
+A vulnerabilidade identificada está relacionada ao uso de expressões regulares dinâmicas construídas com entradas potencialmente controladas por usuários, que podem ser exploradas para causar um **Regular Expression Denial of Service (ReDoS)**. Isso ocorre quando expressões regulares ineficientes bloqueiam o thread principal, consumindo recursos excessivos do sistema.
+
+- Arquivo: `lib/codingChallenges.ts`
+- Linha: 76
+  ```typescript
+  if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+  ```
+- CWE: CWE-1333 (Complexidade Ineficiente em Expressão Regular)
+
+- Impacto: Essa prática pode causar uma negação de serviço, impedindo o funcionamento normal da aplicação.
+
+
+- Recomendações
+
+  - Evitar RegEx Dinâmico: Substituir expressões regulares dinâmicas por expressões estáticas, sempre que possível.
+  - Validação de Entrada: Adicionar validação robusta para qualquer entrada de usuário antes de usá-la em expressões regulares.
+  - Monitoramento e Limite de Recursos: Configurar limites de tempo para a execução de expressões regulares usando bibliotecas como safe-regex.
